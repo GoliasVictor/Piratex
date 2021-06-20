@@ -6,47 +6,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style/style.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script defer src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 	<script defer src="script/Main.js"></script>
 	<script defer src="script/serie.js"></script>
 	<title>Document</title>
 </head>
 <body>
-	<header>
-		<section>
-			<a href="Index.html">
-				<figure>
-					<img src="img\Logo.png" alt="">
-				</figure>
-			</a>
-			<div id="SearchBar">
-				<input type="search" name="" id="">
-				<span class="material-icons">search</span>
-			</div>
-		</section>
-	</header>
+<div  id="Serie">
+	<app-header></app-header>
 	<main>
-		<section id="CapaSerie">
-			<figure>
-				<img src="img/1-banner.jpg"  id="ImgBanner" alt="">
-			</figure>
-			<div class="Descricao"></div>
-		</section>
+		<banner v-bind:serie="Serie"></banner>
 		<section id="NavMenu">
-			<a href="">Sinopse</a>
-			<a href="">Temporadas e Episodios</a>
+			<a href="#TituloSinpse">Sinopse</a>
+			<a href="#TituloEpisodios">Temporadas e Episodios</a>
 		</section>
 		<section>
-			<h2 id="">Sinopse</h2>
-			<p id="Sinopse"></p>
+			<h2 id="TituloSinpse">Sinopse</h2>
+			<p id="Sinopse">{{Serie.Sinopse}}</p>
 		</section>
 		<section id="ContainerTemporada">
-			<h2>Temporada</h2>
-			<div class="test">
-				<select name="example" id="SelecTemporada"></select>
+			<h2 id="TituloEpisodios">Temporada</h2>
+			<select name="example" id="SelecTemporada" v-model="Temporada"><option v-for="i in Temporadas" v-bind:value="i">{{i}}º Tempoarada</option></select>
+			<div id="ContainerEpisodios">  
+				<card-episodio v-for="E in Serie.Episodios" v-if="E.Temporada == Temporada" v-bind:episodio="E" ></card-episodio>
 			</div>
-			<div id="ContainerEpisodios"> </div>
 		</section>
-
 	</main>
+</div>
 </body>
 </html>

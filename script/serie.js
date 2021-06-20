@@ -1,52 +1,58 @@
-const Descricao	= 			document.querySelector("#CapaSerie>.Descricao");
-const ImgBanner	= 			document.querySelector("#ImgBanner");
-const Sinopse 	= 			document.querySelector("#Sinopse"); 
-const SelecTemporada =		document.querySelector("#SelecTemporada"); 
-const ContainerEpisodios = 	document.querySelector("#ContainerEpisodios"); 
+ 
 const urlParams = new URLSearchParams(window.location.search);
 const ID = urlParams.get('ID');
 const Serie = Series.find((S) => S.ID == ID);
+
 if(Serie == undefined)
-	window.location.href = "./Index.html";
-const QtTemporada =  parseInt(Serie.QtTemporada);
+	window.location.href = "./Index.html"; 
+	
+Vue.component('banner', {
+	props: ['Serie'], 
+	template: `
+	<section id="CapaSerie">
+		<figure>
+			<img v-bind:src="Serie | URLBanner"  id="ImgBanner" alt="">
+		</figure>
+		<div class="Descricao">
+			<h1>{{Serie.Nome}}</h1>
+			<p>Título original:{{Serie.NomeOriginal}}</p>
+			<p>Ano de Estréia: {{Serie.Ano}}</p>
+			<p>Categorias: {{Serie.Categorias.join(", ")}}</p>
+			<p>Temporada: {{Serie.QtTemporada}} | Episodios:  {{Serie.QtEpisodio}}</p>
+		</div>
+	</section> 
+	`	 
+});
 
-
-
-function CriarDecricao(Serie){
-	return `
-		<h1>${Serie.Nome}</h1>
-		<p>Título original:${Serie.NomeOriginal}</p>
-		<p>Ano de Estréia: ${Serie.Ano}</p>
-		<p>Categorias: ${Serie.Categorias.join(", ")}</p>
-		<p>Temporada: 5 | Episodios: 22</p>
-	`;
-}
-function DoisDigitos(n) {
-	return (n < 10 ? '0' : '') + n;
-}
-function CriarCardEpisodio(Episodio){
-	return `
+Vue.component('card-episodio', {
+	props: ['episodio'], 
+	methods:{
+		 DoisDigitos:function(n){
+			return (n < 10 ? '0' : '') + n;
+		} 
+	},
+	template: `
 	<div class="DesEpisodio">
-		<h4>T${DoisDigitos(Episodio.Temporada)} E${DoisDigitos(Episodio.Numero)} ${Episodio.Nome}</h4>
-		<small>${Episodio.NomeOriginal} - Exbição: ${Episodio.DataExibicao} - ${Episodio.Duracao}min</small>
-		<p class="Descricao">${Episodio.Descricao}</p>
+		<h4>T{{DoisDigitos(episodio.Temporada)}} E{{DoisDigitos(episodio.Numero)}} {{episodio.Nome}}</h4>
+		<small>{{episodio.NomeOriginal}} - Exbição: {{episodio.DataExibicao}} - {{episodio.Duracao}}min</small>
+		<p class="Descricao">{{episodio.Descricao}}</p>
 		<p class="Observacao">Observacao:</p>
-		<p>${Episodio.Observacao || "Nenhuma Observacao"}</p>
+		<p>{{episodio.Observacao || "Nenhuma Observacao"}}</p>
 	</div>
-	`
-}
-function ImprimirEpisodios(){
-	ContainerEpisodios.innerHTML = "";
-	const EpisodiosTemporada = Serie.Episodios.filter((E) => E.Temporada == SelecTemporada.value);
-	for(let Episodio of EpisodiosTemporada)
-		ContainerEpisodios.innerHTML += CriarCardEpisodio(Episodio);
-}
- 
-
-Descricao.innerHTML = CriarDecricao(Serie);
-ImgBanner.src = URLBanner(Serie)
-Sinopse.innerText = Serie.Sinopse;
-SelecTemporada.addEventListener("change",ImprimirEpisodios );
-for (let i = QtTemporada; i > 0; i--) 
-    SelecTemporada.innerHTML += `<option value="${i}">${i}º Tempoarada</option>\n`
-ImprimirEpisodios()
+	`	 
+});
+var app = new Vue({
+	el: '#Serie',
+	computed:{	
+		Temporadas:function(){
+			var Temporadas =[];
+			for( let i = 1 ; i <= this.Serie.QtTemporada; i++)
+				Temporadas.push(i);
+			return Temporadas;
+		}
+	},
+	data: { 
+		Temporada:Serie.QtTemporada,
+		Serie:Serie
+	}
+})

@@ -1,17 +1,31 @@
 const SecSeries = document.getElementById("SecSeries"); 
-Series.forEach(S => {
-	const URL = "./serie.html?ID="+S.ID;
-	SecSeries.innerHTML += `
-	<article class="CardSerie"> 
-		<a href="${URL}"><figure><img src="${URLBanner(S)}" alt=""></figure></a>
-		<div class="Descricao">
-			<div class="Titulo">    
-				<a href="${URL}"><h3>${S.Nome}</h3></a>
-				<a href="${URL}"><h5>${S.Ano}</h5></a>
-			</div>
-			<a href="${URL}"><h5>${S.NomeOriginal}</h5></a>
-			<div class="Categorias">${S.Categorias.map( C => `<span>${C}</span>`).join("")}</div> 
-		</div> 
-	</article>
-	`
-}); 
+ 
+Vue.component('card-serie', {
+	props: ['serie'],
+	computed:{
+		URL : function(){
+			return URLSerie(this.serie);
+		}
+	}, 
+	template: `
+		<article class="CardSerie"> 
+			<a v-bind:href="URL"><figure><img v-bind:src="serie | URLBanner" alt=""></figure></a>
+			<div class="Descricao"> 
+				<div class="Titulo">    
+					<a v-bind:href="URL"><h3>{{serie.Nome}}</h3></a>
+					<a v-bind:href="URL"><h5>{{serie.Ano}}</h5></a>
+				</div> 
+				<a v-bind:href="URL"><h5>{{serie.NomeOriginal}}</h5></a>
+				<div class="Categorias">
+					<span v-for="C in serie.Categorias">{{C}}</span>
+				</div> 
+			</div> 
+		</article> `,
+	 
+})
+var app = new Vue({
+	el: '#index',
+	data: {
+		Series:Series
+	}
+})

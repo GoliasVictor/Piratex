@@ -246,7 +246,7 @@ var Series = [
              "NomeOriginal": "Dark",
              "DataExibicao": "20/10/2020",
              "Duracao": "20",
-             "Observacao": []
+             "Observacao": ""
           },
           {
              "Temporada": "1",
@@ -356,4 +356,27 @@ var Series = [
  ]
 function URLBanner(Serie){
    return `./img/${Serie.ID}-banner.jpg`;
-}
+};
+function URLSerie(Serie){
+   return "./serie.html?ID="+Serie.ID;
+};
+
+Vue.filter('URLBanner', URLBanner);
+Vue.filter('URLSerie', URLSerie);
+Vue.component('app-header',{
+   template:`
+   <header>
+      <section>
+         <a href="Index.html">
+         <figure>
+            <img src="img\\Logo.png" alt="">
+         </figure>
+         </a>
+         <div id="SearchBar">
+         <input type="search" >
+         <span class="material-icons">search</span>
+         </div>
+      </section>
+   </header>
+   `
+})
