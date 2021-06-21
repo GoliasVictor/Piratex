@@ -1,4 +1,5 @@
-var Series = [
+
+export default [
     {
        "ID": "1",
        "Nome": "Black Mirror",
@@ -353,30 +354,4 @@ var Series = [
        ],
        "Sinopse": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent viverra, massa vitae eleifend tempor, ligula augue hendrerit est, eu feugiat ligula dui vitae ex. Donec quis tellus non metus gravida suscipit. Praesent sit amet ex in est interdum pharetra id eu purus."
     }
- ]
-function URLBanner(Serie){
-   return `./img/${Serie.ID}-banner.jpg`;
-};
-function URLSerie(Serie){
-   return "./serie.html?ID="+Serie.ID;
-};
-
-Vue.filter('URLBanner', URLBanner);
-Vue.filter('URLSerie', URLSerie);
-Vue.component('app-header',{
-   template:`
-   <header>
-      <section>
-         <a href="Index.html">
-         <figure>
-            <img src="img\\Logo.png" alt="">
-         </figure>
-         </a>
-         <div id="SearchBar">
-         <input type="search" >
-         <span class="material-icons">search</span>
-         </div>
-      </section>
-   </header>
-   `
-})
+ ];
