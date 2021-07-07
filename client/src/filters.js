@@ -3,5 +3,8 @@ export function URLBanner(Serie){
 };
 export function URLSerie(Serie){
 	return "/serie/"+Serie.ID;
-}; 
-
+};
+export function DateToString(Data){
+    let [dd, mm, aaaa] = [Data.getDate(), Data.getMonth()+1, Data.getFullYear()]
+    return `${dd}/${mm}/${aaaa}`;
+};

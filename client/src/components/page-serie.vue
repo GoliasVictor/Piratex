@@ -11,7 +11,7 @@
 				<p>Categorias: {{serie.Categorias.join(", ")}}</p>
 				<p>Temporada: {{serie.QtTemporada}} | Episodios:  {{serie.QtEpisodio}}</p>
 			</div>
-		</section> 
+		</section>
 		<section id="NavMenu">
 			<a href="#TituloSinpse">Sinopse</a>
 			<a href="#TituloEpisodios">Temporadas e Episodios</a>
@@ -25,8 +25,8 @@
 			<select name="example" id="SelecTemporada" v-model="Temporada">
 				<option v-for="i in Temporadas" :key="i" v-bind:value="i">{{i}}º Tempoarada</option>
 			</select>
-			<div id="ContainerEpisodios">  
-				<card-episodio v-for="E in Episodios" :key="E.Nome+E.Numero" v-bind:episodio="E" ></card-episodio>
+			<div id="ContainerEpisodios">
+				 <card-episodio v-for="E in Episodios" :key="E.Nome+E.IdEpisodio" v-bind:episodio="E" ></card-episodio>
 			</div>
 		</section>
 	</div>
@@ -34,22 +34,24 @@
 <script>
 import {URLBanner} from "../filters";
 import CardEpisodio from "./card-episodio.vue";
+import {GetEpisodios} from "../Requests";
+
 export default {
 	props:["serie"],
 	data () {
 		return {
-			Temporada:this.serie.QtTemporada,
+			Temporada:this.serie.QtTemporadas,
 		}
 	},
-	computed:{	
+	computed:{
 		Temporadas:function(){
 			var Temporadas =[];
-			for( let i = 1 ; i <= this.serie.QtTemporada; i++)
+			for( let i = 1 ; i <= this.serie.QtTemporadas; i++)
 				Temporadas.push(i);
 			return Temporadas;
 		},
 		Episodios:function(){
-			return this.serie.Episodios.filter((e) => e.Temporada  == this.Temporada);
+			return GetEpisodios(this.serie.ID, this.Temporada);
 		}
 	},
 	components:{

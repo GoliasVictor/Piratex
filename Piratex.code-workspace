@@ -1,8 +1,36 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {}
+    "folders": [
+        {"path": "./client"},
+        {"path": "./server"}, 
+    ],
+    "settings": {
+        "sqltools.connections": [
+            {
+                "mysqlOptions": {
+                    "authProtocol": "default"
+                },
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 3306,
+                "askForPassword": true,
+                "driver": "MySQL",
+                "name": "ETECAF",
+                "username": "root",
+                "database": "ETECAF"
+            },
+            {
+                "mysqlOptions": {
+                    "authProtocol": "default"
+                },
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 3306,
+                "driver": "MySQL",
+                "name": "PIRATEX",
+                "username": "SERVIDOR",
+                "password": "@BATATA\\Server-\\142",
+                "database": "PIRATEX"
+            }
+        ]
+    }
 }
