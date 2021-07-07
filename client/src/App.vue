@@ -1,26 +1,23 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <main>  
+    <main>
       <router-view></router-view>
     </main>
   </div>
 </template>
 
-<script >
-import DadosSeries from "./DadosSeries"
+<script > 
 import AppHeader from "./components/app-header.vue"
 import PageSeries from "./components/page-series.vue"
 import PageSerie from "./components/page-serie.vue"
+import {GetSeries, GetSerie} from "./Requests"
+import VueRouter from 'vue-router';
 
-import VueRouter from 'vue-router';   
- 
 export default {
   name: 'app',
   data () {
-    return {
-      Series:DadosSeries, 
-    }
+    return {}
   },
   components:{
     "app-header":AppHeader,
@@ -28,11 +25,9 @@ export default {
     "page-serie":PageSerie
   },
 
-  methods:{ 
-    serieByID(ID){
-      console.log(ID);
-      return this.Series.find((s)=> s.ID == ID); 
-    }
+  methods:{
+    GetSeries,
+    GetSerie
   },
   router : new VueRouter(),
   created : function(){
@@ -42,17 +37,15 @@ export default {
         path: '/',
         component: PageSeries,
         props: () => ({
-          series:self.Series
+          series:self.GetSeries()
         })
       },
       {
         path:'/serie/:ID',
         component:PageSerie,
-        props: function(route) {
-          return {
-            serie:self.serieByID(route.params.ID)
-          }
-        }
+        props: (route) => ({
+          serie:  self.GetSerie(route.params.ID)
+        })
       }
     ])
   }
