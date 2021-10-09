@@ -2,7 +2,7 @@
   <div id="app">
     <app-header></app-header>
     <main>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath" ></router-view>
     </main>
   </div>
 </template>
@@ -11,6 +11,7 @@
 import AppHeader from "./components/app-header.vue"
 import PageSeries from "./components/page-series.vue"
 import PageSerie from "./components/page-serie.vue"
+import PagePesquisa from "./components/page-pesquisa.vue"
 import {GetSeries, GetSerie} from "./Requests"
 import VueRouter from 'vue-router';
 
@@ -22,9 +23,9 @@ export default {
   components:{
     "app-header":AppHeader,
     "page-series":PageSeries,
-    "page-serie":PageSerie
+    "page-serie":PageSerie,
+    "page-pesquisa":PagePesquisa
   },
-
   methods:{
     GetSeries,
     GetSerie
@@ -46,6 +47,13 @@ export default {
         props: (route) => ({
           serie:  self.GetSerie(route.params.ID)
         })
+      },
+      {
+        path:'/pesquisa',
+        component:PagePesquisa,
+        props:(r)=>{
+          console.log(this.$route.fullPath)
+        }
       }
     ])
   }

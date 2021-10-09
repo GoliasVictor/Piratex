@@ -1,19 +1,25 @@
-import { Response, Request } from "express";
-import {connect,selectEpisodios, selectSerie, selectInfoBasicaSerie} from "./BancoDeDados";
+import { Response, Request, query } from "express";
+import {connect,selectCategoriasSerie,selectEpisodios, selectSerie, selectSeries } from "./BancoDeDados";
 import { Connection } from "mysql2/promise";
 let conn : Connection;
 
 import express from "express";
 import cors from 'cors';
+import qs from "qs";
+var parseUrl = require('parseurl');
 const app = express();
 app.use(cors());
 
 app.get("/Series",async function (req : Request,res : Response){
-	var Series;
-	if(req.query.Info == "Basica")
-		Series = await selectInfoBasicaSerie(conn);
-	else
-		Series = await selectInfoBasicaSerie(conn);
+	let query = qs.parse(parseUrl(req).query);
+	let nome  = undefined;
+	let categoria = undefined;
+	if(typeof query.nome  === "string")
+		nome = query.nome;
+	if(typeof query.categoria  === "string")
+		categoria = query.categoria;
+	console.log(typeof nome + " - " + typeof categoria);
+	var Series = await selectSeries(conn,nome , categoria);
 	res.json(Series);
 });
 app.get("/Serie/:ID", async function (req : Request,res : Response){

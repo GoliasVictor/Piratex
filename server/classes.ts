@@ -26,7 +26,7 @@ export class Serie{
 	ID 			: number;
 	Nome			: string;
 	NomeOriginal: string;
-	AnoSerie		: number;
+	Ano		: number;
 	QtTemporadas: number	  | undefined;
 	QtEpisodios	: number	  | undefined;
 	Sinopse		: string 	  | undefined;
@@ -35,7 +35,7 @@ export class Serie{
 		this.ID  = Iserie.ID_SERIE;
 		this.Nome			= Iserie.NM_SERIE;
 		this.NomeOriginal	= Iserie.NM_ORIGINAL_SERIE;
-		this.AnoSerie		= Iserie.AA_SERIE;
+		this.Ano				= Iserie.AA_SERIE;
 		this.QtTemporadas	= Iserie.QT_TEMPORADAS;
 		this.QtEpisodios	= Iserie.QT_TEMPORADAS;
 		this.Sinopse		= Iserie.DS_SINOPSE_SERIE;

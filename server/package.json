@@ -12,7 +12,7 @@
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.12",
     "@types/node": "^16.0.0",
-	 "@types/mysql": "^2.15.18"
+    "@types/mysql": "^2.15.18"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -39,7 +39,7 @@
 
 a{ 
     color: inherit;  
-    width: inherit;
+    width: auto;
     text-decoration: inherit; 
     &:hover *, &:hover{
         color:var(--Link); 
@@ -57,6 +57,27 @@ h2{
 }
 h4{
     font-size: 1.1em;
+}
+input{
+    background-color: transparent;
+}
+input[type="text"]{
+    padding: 0.1em 1em;
+    color: var(--SoftDarkContrast);
+    width: fit-content;
+    border-radius: 2em;
+    border: 2px solid var(--Primary);
+}
+button{
+    background-color: var(--Primary);
+    color: var(--SoftDarkContrast);
+    border: none;
+    padding: 0.1em 1em;
+    border-radius: 2em;
+    &:hover{
+        background-color: var(--PrimaryDark);
+        cursor: pointer;
+    }
 }
 select{
     background-color: transparent;
@@ -99,28 +120,33 @@ header {
 	border: var(--Primary) solid;
 	border-radius: 30px;
 
-
 	input[type="search"] {
         background-color: transparent;
 		color: var(--SoftDarkContrast);
 		box-sizing: content-box; 
-        max-width: 150px;
+        max-width: 0;        
         width: 100%;
-        padding: 0.4rem 1rem;
         font-size: 1rem;
-		border: none;
-        transition: width 0.2s linear; 
+		border: 0;
+        transition: max-width 0.2s linear; 
 		&::-webkit-search-cancel-button {
 			display: none;
 		} 
 	} 
-  
+    &:hover input[type="search"], input[type="search"]:focus{
+            padding: 0.4rem 1rem;
+            max-width: 150px;
+    }
 	.material-icons {
 		color: var(--SoftDarkContrast);
-		margin: 0.3rem; 
+		padding: 0.3rem; 
         cursor: pointer;
         background: transparent;    
         border: none;
+        border-radius:3em;
+        &:hover{
+            background-color: rgba(255,255,255,0.1);
+        }
 	}
 }
 main {
@@ -136,64 +162,13 @@ main {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.CardSerie{  
-   
-    overflow: hidden;  
-    position: relative; 
-    width: 100%;
-    max-width: 300px;
-    
-    margin: 6px;
-    figure,img{
-        width: inherit;
-        height: 200px;
-    }
-    img{
-        border-radius: 10px 10px 0 0 ;
-        object-fit: cover; 
-        &:hover{
-            opacity: 0.7;
-        }
-
-    }
-    .Descricao{  
-        border-radius: 0 0 10px 10px  ;
-        padding: 10px;
-        width: inherit;
-        background-color: var(--Dark);
-        min-height: 100px;
-    }
-    .Titulo{
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-    } 
-    .Categorias{
-        display: flex;
-        margin: 9px 0 ; 
-        font-size: 0.9em;
-        flex-wrap: wrap;
-        *{ 
-            font-size: 1em;
-            background: var(--Primary);
-            border-radius: 20px; 
-            padding: 0.1em 0.5em; 
-   
-            margin: 5px 6px;
-            &:hover{
-                opacity: 0.8;
-                cursor: pointer;
-            }
-        }
-    }
-     
-} 
 
 #CapaSerie{
     border-radius: 10px;
     display: flex; 
     flex-wrap: wrap;
-    img{
+    
+	img{
         height: 100%;
         width: 100%;
         object-fit: cover; 
@@ -202,6 +177,7 @@ main {
         height: 340px; 
         width: calc( 100% - 340px ); 
     }
+	
     .Descricao{
         display: flex;
         flex-direction: column;
